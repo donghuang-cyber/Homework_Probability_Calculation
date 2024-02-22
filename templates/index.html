@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Interface</title>
+  <style>
+    /* CSS for chat interface */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .chat-container {
+      width: 70%;
+      max-width: 800px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .chat-box {
+      height: 600px;
+      padding: 10px;
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+
+    .user-message {
+      background-color: #e6f2ff;
+      align-self: flex-end;
+    }
+
+    .bot-message {
+      background-color: #d9ead3;
+      align-self: flex-start;
+    }
+
+    .user-input {
+      width: calc(100% - 80px);
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .send-button {
+      width: 70px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      margin: 10px;
+      cursor: pointer;
+      color: #fff;
+      background-color: #007bff;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-box" id="chat-box">
+      <!-- Chat messages will be displayed here -->
+    </div>
+    <div style="display: flex;">
+      <input type="text" id="user-input" class="user-input" placeholder="Type a message...">
+      <button onclick="sendMessage()" class="send-button">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      var userInput = document.getElementById("user-input").value;
+      displayUserMessage(userInput);
+      // Here, you can send userInput to your backend for processing and get a response
+      // Replace the below line with your actual call to your backend API
+      var botResponse = "This is a sample response from the bot.";
+      displayBotMessage(botResponse);
+    }
+
+    function displayUserMessage(message) {
+      var chatBox = document.getElementById("chat-box");
+      var userMessage = `<div class="message user-message">${message}</div>`;
+      chatBox.innerHTML += userMessage;
+      // Scroll to the bottom of chat box
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function displayBotMessage(message) {
+      var chatBox = document.getElementById("chat-box");
+      var botMessage = `<div class="message bot-message">${message}</div>`;
+      chatBox.innerHTML += botMessage;
+      // Scroll to the bottom of chat box
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+function sendMessage() {
+  var userInput = document.getElementById("user-input").value;
+
+  fetch('/ask', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message: userInput }),
+  })
+  .then(response => response.json())
+  .then(data => {
+    displayBotMessage(data.message);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+  displayUserMessage(userInput);
+  document.getElementById("user-input").value = ''; // 发送消息后清空输入框
+}
+     document.addEventListener("DOMContentLoaded", function() {
+    var welcomeMessage = "您好！欢迎使用，我是由寻觅名字队开发的基于Mindspore和LLM+Langchain的医疗知识图谱可解释性应用。你可以在下面聊天框输入想问的问题哦！";
+    displayBotMessage(welcomeMessage);
+  });
+  </script>
+</body>
+</html>

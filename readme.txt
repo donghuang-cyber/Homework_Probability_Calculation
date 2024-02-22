@@ -5,5 +5,5 @@ https://github.com/ymcui/Chinese-BERT-wwm#%E4%B8%AD%E6%96%87%E6%A8%A1%E5%9E%8B%E
 
 3.Bilstm-crf模型和训练文件在Homework_Probability_Calculation\knowledge_extraction\bilstm_crf 路径下，视频中演示的算法和模型训练过程。
 
-4.项目所需依赖在requirement.txt文件中
+4.项目所需依赖在requirement.txt文件中，数据集在cMedQANER中
 

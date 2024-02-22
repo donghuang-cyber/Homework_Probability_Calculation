@@ -1,0 +1,19 @@
+{
+    "ask_template": "您问的是疾病 '{Disease}' 的治疗方法吗？", 
+    "choice_answer": "'心脏病' 疾病的治疗方式、可用的药物、推荐菜肴有：\n手术治疗、介入治疗、药物治疗、支持性治疗\n琥乙红霉素片、依托红霉素颗粒、琥乙红霉素颗粒、依托红霉素片、地高辛片\n素炒菠菜、五香蒜苔、素炒小白菜、苦瓜粥、银耳冬瓜羹、芥菜炒蚕豆、豌豆绿豆粥、马兰头菜粥\n", 
+    "cql_template": [
+        "MATCH(p:疾病) WHERE p.name='{Disease}' RETURN p.cure_way", 
+        "MATCH(p:疾病)-[r:recommand_drug]->(q) WHERE p.name='{Disease}' RETURN q.name", 
+        "MATCH(p:疾病)-[r:recommand_recipes]->(q) WHERE p.name='{Disease}' RETURN q.name"
+    ], 
+    "deny_response": "没有理解您说的意思哦~", 
+    "intent_strategy": "clarify", 
+    "replay_answer": "您问的是疾病 '心脏病' 的治疗方法吗？", 
+    "reply_template": "'{Disease}' 疾病的治疗方式、可用的药物、推荐菜肴有：\n", 
+    "slot_list": [
+        "Disease"
+    ], 
+    "slot_values": {
+        "Disease": "心脏病"
+    }
+}
